@@ -7,7 +7,9 @@ playPauseBtn = wrapper.querySelector(".play-pause"),
 prevBtn = wrapper.querySelector("#prev"),
 nextBtn = wrapper.querySelector("#next"),
 progressBar = wrapper.querySelector('.progress-bar'),
-progressArea = wrapper.querySelector('.progress-area')
+progressArea = wrapper.querySelector('.progress-area'),
+showMoreBtn = wrapper.querySelector(""),
+hideMusicBtn = wrapper.querySelector("")
 
 let musicIndex = 1;
 
@@ -133,3 +135,26 @@ repeatBtn.addEventListener("click", ()=>{
 })
 
 //make repeat button work
+musicAudio.addEventListener("ended", ()=>{
+    let getText = repeatBtn.innerText;
+
+    switch(getText){
+        case "repeat":
+            nextMusic()
+            break;
+        case "repeat_one":
+            musicAudio.currentTime=0
+            loadMusic(indexNumb)
+            break;
+        case "shuffle":
+            let randIndex = Math.floor((Math.random()*allMusic.length)+1)
+            do{
+                randIndex = Math.floor((Math.random()*allMusic.length)+1)
+            }while(musicIndex==randIndex)
+            musicIndex = randIndex;
+            loadMusic(musicIndex)
+            playMusic()
+            break;
+    }
+})
+
